@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Test Like</title>
+  <title>Test Nút Like Facebook</title>
 </head>
 <body>
+
+  <!-- Bắt buộc: SDK và fb-root phải load ngay trong body -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
     src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"></script>
 
-  <h2>Nút Like Test</h2>
+  <h2>Test Nút Like</h2>
+
+  <!-- Đây là plugin Like -->
   <div class="fb-like"
     data-href="https://www.facebook.com/photo.php?fbid=24554571090901262&set=p.24554571090901262&type=3"
-    data-width="320"
+    data-width=""
     data-layout="standard"
     data-action="like"
     data-size="large"
-    data-share="true"></div>
+    data-share="true">
+  </div>
+
 </body>
 </html>
