@@ -1,3 +1,103 @@
-<iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D24554571090901262%26set%3Dp.24554571090901262%26type%3D3&width=320&layout=standard&action=like&size=large&share=true&height=80&appId"
-  width="320" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-  allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài viết Facebook - Nút Like</title>
+
+  <!-- Open Graph để khi share link kulroyal.github.io có preview -->
+  <meta property="og:title" content="📸 Một khoảnh khắc tuyệt đẹp – Like & Share ngay!">
+  <meta property="og:description" content="Lucie Studio - Hãy ủng hộ bằng cách nhấn Like ❤️">
+  <meta property="og:image" content="https://kulroyal.github.io/like-fb/preview.jpg">
+  <meta property="og:url" content="https://kulroyal.github.io/like-fb/">
+  <meta property="og:type" content="website">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .fb-post {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      max-width: 500px;
+      width: 100%;
+      padding: 15px;
+    }
+    .fb-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .fb-header img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .fb-name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .fb-time {
+      font-size: 12px;
+      color: #65676b;
+    }
+    .fb-caption {
+      font-size: 15px;
+      margin: 10px 0;
+    }
+    .fb-image img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 5px;
+    }
+    .fb-actions {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fb-post">
+    <!-- Header -->
+    <div class="fb-header">
+      <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/ogUq8k2BZ0v.png" alt="Avatar">
+      <div>
+        <div class="fb-name">Lucie Studio</div>
+        <div class="fb-time">1 Tháng 10 lúc 23:23</div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="fb-caption">
+      📸 Một khoảnh khắc tuyệt đẹp – hãy nhấn Like & Share để ủng hộ!
+    </div>
+
+    <!-- Image (ảnh bạn up vào repo, ví dụ preview.jpg) -->
+    <div class="fb-image">
+      <img src="https://kulroyal.github.io/like-fb/preview.jpg" alt="Ảnh Facebook">
+    </div>
+
+    <!-- Facebook Like plugin (iframe) -->
+    <div class="fb-actions">
+      <iframe 
+        src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D24554571090901262%26set%3Dp.24554571090901262%26type%3D3&width=320&layout=standard&action=like&size=large&share=true&height=80&appId"
+        width="320" 
+        height="80" 
+        style="border:none;overflow:hidden" 
+        scrolling="no" 
+        frameborder="0" 
+        allowfullscreen="true" 
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+      </iframe>
+    </div>
+  </div>
+
+</body>
+</html>
