@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài viết Facebook Demo</title>
+
+  <!-- Open Graph tags để Facebook lấy preview -->
+  <meta property="og:title" content="📸 Một khoảnh khắc tuyệt đẹp – Like & Share ngay!">
+  <meta property="og:description" content="Lucie Studio - Chia sẻ khoảnh khắc đáng nhớ. Nhấn Like để ủng hộ ❤️">
+  <meta property="og:image" content="https://kulroyal.github.io/like-fb/preview.jpg">
+  <meta property="og:url" content="https://kulroyal.github.io/like-fb/">
+  <meta property="og:type" content="website">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -56,6 +64,11 @@
 </head>
 <body>
 
+  <!-- Facebook SDK -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"></script>
+
   <div class="fb-post">
     <!-- Header -->
     <div class="fb-header">
@@ -73,18 +86,14 @@
 
     <!-- Image -->
     <div class="fb-image">
-      <img src="https://scontent.fhph4-1.fna.fbcdn.net/v/t39.30808-6/557567797_24554571114234593_464232003405823749_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=bd9a62&_nc_eui2=AeHpGyzxCpbRNx6Iye-Ml3LjyWxhjcgYUnLJbGGNyBhSch2w6v89XsFlmg9RGPVYkwF6hL5BDr7qf0U6W3HDHyVO&_nc_ohc=eBRS4VvDkdcQ7kNvwHtmAAa&_nc_oc=Adl8fCOMZcStZhmBtNltd4072yK6LnOQFQ7xJYQ-awT16SCzYtkBHyeFlK_3bls3rg1MpFZuTMGG9iH-2neJJgbJ&_nc_zt=23&_nc_ht=scontent.fhph4-1.fna&_nc_gid=SOdYMx7eyd92qfyoJ7FsXw&oh=00_AfauG3XNLw949N9hX5pGEWM2tEB7hidctgNjuNloe1qaPw&oe=68E3C896" alt="Ảnh Facebook">
+      <img src="https://kulroyal.github.io/like-fb/preview.jpg" alt="Ảnh Facebook">
     </div>
 
     <!-- Facebook Like plugin -->
     <div class="fb-actions">
-      <div id="fb-root"></div>
-      <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"></script>
-
       <div class="fb-like"
         data-href="https://www.facebook.com/photo.php?fbid=24554571090901262&set=p.24554571090901262&type=3"
-        data-width=""
+        data-width="500"
         data-layout="standard"
         data-action="like"
         data-size="large"
