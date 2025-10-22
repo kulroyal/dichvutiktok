@@ -84,6 +84,30 @@
             padding: 0.5rem 1rem; /* Smaller padding on mobile */
             font-size: 0.875rem; /* text-sm */
         }
+        
+        /* --- SMOOTH TAB TRANSITION STYLES (NEW) --- */
+        .tab-content-wrapper {
+            transition: height 0.3s ease-in-out; /* Smooth height change for wrapper */
+            position: relative;
+        }
+        
+        .tab-content {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            opacity: 0;
+            position: absolute; /* Allows smooth height adjustment */
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(10px); /* Slight initial move for effect */
+            visibility: hidden; /* Hide completely when not active */
+        }
+
+        .tab-content.active {
+            opacity: 1;
+            position: relative; /* Switch to relative to occupy space */
+            transform: translateY(0);
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -184,7 +208,7 @@
                     <div class="p-5 md:p-6 rounded-2xl shadow-inner bg-gray-50 h-full">
                         <h3 class="text-xl md:text-2xl font-bold text-indigo-400 mb-5 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 md:w-7 md:h-7 mr-3 text-indigo-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.375 22.5.01-1.425-2.062-1.928a6.25 6.25 0 0 1-1.395-2.222l-.123-.628c-.023-.105-.034-.213-.034-.325v-.31c0-.205.03-.4.088-.584.058-.186.13-.365.215-.536.084-.171.18-.337.288-.492.108-.154.22-.304.336-.445.116-.142.238-.276.368-.403.13-.127.266-.252.41-.371.143-.118.29-.23.44-.336.148-.106.3-.207.452-.303.15-.096.3-.188.452-.276.15-.088.3-.176.447-.26.146-.084.29-.164.434-.239.144-.075.285-.145.426-.21.14-.064.28-.12.418-.175.137-.055.274-.105.409-.15.135-.045.27-.085.404-.12.134-.035.267-.068.398-.095.13-.027.26-.046.388-.06.128-.013.256-.022.382-.027h.37c.125 0 .25.004.373.012.122.008.243.02.363.037.12.016.238.038.355.066.115.028.228.06.339.096.11.036.216.077.317.124.1.047.195.1.285.158.09.057.175.119.255.185.08.066.155.134.225.204.068.07.13.143.19.218.057.076.11.155.16.235.048.08.093.16.135.242.04.084.075.167.105.25.03.084.055.169.075.253.02.085.035.17.045.257.01.085.015.17.015.255v.636l-.01 1.424z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.375 22.5.01-1.425-2.062-1.928a6.25 6.25 0 0 1-1.395-2.222l-.123-.628c-.023-.105-.034-.213-.034-.325v-.31c0-.205.03-.4.088-.584.058-.186.13-.365.215-.536.084-.171.18-.337.288-.492.108-.154.22-.304.336-.445.116-.142.238-.276.368-.403.13-.127.266-.252.41-.371.143-.118.29-.23.44-.336.148-.106.3-.207.452-.303.15-.096.3-.188.452-.276.15-.088.3-.176.447-.26.146-.084.29-.164.434-.239.144-.075.285-.145.426-.21.14-.064.28-.12.418-.175.137-.055.274-.105.409-.15.135-.045.27-.085.404-.12.134-.035.267-.068.398-.095.13-.027.26-.046.388-.06.128-.013.256-.022.382-.027h.37c.125 0 .25.004.373.012.122.008.243.02.363.037.12.016.238.038.355.066.115-.028.228.06.339.096.11.036.216.077.317.124.1.047.195.1.285.158.09.057.175.119.255.185.08.066.155.134.225.204.068.07.13.143.19.218.057.076.11.155.16.235.048.08.093.16.135.242.04.084.075.167.105.25.03.084.055.169.075.253.02.085.035.17.045.257.01.085.015.17.015.255v.636l-.01 1.424z" />
                             </svg>
                             2. Sản Xuất & Tùy Chọn
                         </h3>
@@ -245,8 +269,8 @@
                         
                         <div id="final-cost-container" class="mt-8 md:mt-10 p-5 md:p-6 text-center">
                             <span class="text-lg font-semibold text-indigo-400 block mb-1 md:mb-2 tracking-wider uppercase">Chi phí cuối cùng/Tháng:</span>
-                            <!-- GIẢM FONT SIZE TỪ TEXT-6XL XUỐNG TEXT-5XL TRÊN MOBILE -->
-                            <span id="final-cost" class="text-4xl md:text-3xl font-extrabold text-indigo-300 leading-tight">0 VNĐ</span>
+                            <!-- Đã cập nhật font size thành text-4xl (mobile) và text-5xl (desktop) -->
+                            <span id="final-cost" class="text-4xl md:text-5xl font-extrabold text-indigo-300 leading-tight">0 VNĐ</span>
                         </div>
 
                          <div class="mt-5 md:mt-6 p-3 md:p-4 bg-indigo-600/10 rounded-xl text-indigo-300 text-sm border border-indigo-500/50">
@@ -265,86 +289,90 @@
                     <button class="tab-btn" data-tab="details">Hạng Mục Chi Tiết</button>
                     <button class="tab-btn" data-tab="terms">Điều Khoản Hợp Tác</button>
                 </div>
+                
+                <!-- WRAPPER VÀO DYNAMICALLY CẬP NHẬT HEIGHT BẰNG JS -->
+                <div class="tab-content-wrapper relative max-w-6xl mx-auto"> 
 
-                <div id="overview" class="tab-content active">
-                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-center max-w-6xl mx-auto">
-                        <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
-                            <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">350K</div>
-                            <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chi phí Content/Video</h3>
-                            <p class="text-xs text-slate-400">Kịch bản chi tiết + Caption.</p>
-                        </div>
-                         <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
-                            <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">650K</div>
-                            <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chi phí Quay Dựng/Video</h3>
-                            <p class="text-xs text-slate-400">Quay tại quán + Hậu kỳ trọn gói.</p>
-                        </div>
-                        <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
-                            <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">1M 600K</div>
-                            <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chụp ảnh Sản phẩm</h3>
-                            <p class="text-xs text-slate-400">Gói tùy chọn: 10-15 ảnh.</p>
-                        </div>
-                         <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
-                            <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">1M</div>
-                            <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Phí Định hướng Cố định</h3>
-                            <p class="text-xs text-slate-400">Chi phí chiến lược/phân tích.</p>
+                    <div id="overview" class="tab-content active">
+                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-center">
+                            <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
+                                <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">350K</div>
+                                <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chi phí Content/Video</h3>
+                                <p class="text-xs text-slate-400">Kịch bản chi tiết + Caption.</p>
+                            </div>
+                            <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
+                                <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">650K</div>
+                                <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chi phí Quay Dựng/Video</h3>
+                                <p class="text-xs text-slate-400">Quay tại quán + Hậu kỳ trọn gói.</p>
+                            </div>
+                            <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
+                                <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">1M 600K</div>
+                                <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Chụp ảnh Sản phẩm</h3>
+                                <p class="text-xs text-slate-400">Gói tùy chọn: 10-15 ảnh.</p>
+                            </div>
+                            <div class="glass-card p-5 rounded-xl shadow-md border border-gray-100">
+                                <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-1">1M</div>
+                                <h3 class="font-semibold text-slate-200 text-sm md:text-lg">Phí Định hướng Cố định</h3>
+                                <p class="text-xs text-slate-400">Chi phí chiến lược/phân tích.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="details" class="tab-content max-w-5xl mx-auto">
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-10">
-                        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
-                            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-slate-200 border-b pb-2 border-gray-200">Gói Toàn Diện (Content + Sản Xuất)</h3>
-                            <ul class="space-y-3 text-slate-300 text-sm md:text-base">
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Phí Định hướng (1,000,000 VNĐ):</strong> Phân tích điểm mạnh quán, chọn concept nội dung độc quyền.</p></li>
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Content Creator (350,000 VNĐ/video):</strong> Xây dựng kịch bản chi tiết & Kế hoạch đăng bài kèm Caption/Hashtag.</p></li>
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Quay & Dựng (650,000 VNĐ/video):</strong> Bao gồm toàn bộ khâu sản xuất.</p></li>
-                            </ul>
-                        </div>
-                        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
-                            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-slate-200 border-b pb-2 border-gray-200">Gói Sản Xuất Đơn Thuần (Chỉ Quay & Dựng)</h3>
-                            <ul class="space-y-3 text-slate-300 text-sm md:text-base">
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Điều kiện áp dụng:</strong> Khách hàng đã có kịch bản và nội dung được duyệt sẵn, chỉ cần Lucie Media sản xuất.</p></li>
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Quay & Dựng Trọn Gói (650,000 VNĐ/video):</strong> Thực hiện sản xuất theo kịch bản có sẵn.</p></li>
-                                <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Tùy chọn: Chụp ảnh món ăn (1,600,000 VNĐ):</strong> Gói bổ sung chụp 10-15 ảnh chất lượng cao.</p></li>
-                            </ul>
+                    <div id="details" class="tab-content">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
+                            <div class="glass-card p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+                                <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-slate-200 border-b pb-2 border-gray-200">Gói Toàn Diện (Content + Sản Xuất)</h3>
+                                <ul class="space-y-3 text-slate-300 text-sm md:text-base">
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Phí Định hướng (1,000,000 VNĐ):</strong> Phân tích điểm mạnh quán, chọn concept nội dung độc quyền.</p></li>
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Content Creator (350,000 VNĐ/video):</strong> Xây dựng kịch bản chi tiết & Kế hoạch đăng bài kèm Caption/Hashtag.</p></li>
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Quay & Dựng (650,000 VNĐ/video):</strong> Bao gồm toàn bộ khâu sản xuất.</p></li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+                                <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-slate-200 border-b pb-2 border-gray-200">Gói Sản Xuất Đơn Thuần (Chỉ Quay & Dựng)</h3>
+                                <ul class="space-y-3 text-slate-300 text-sm md:text-base">
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Điều kiện áp dụng:</strong> Khách hàng đã có kịch bản và nội dung được duyệt sẵn, chỉ cần Lucie Media sản xuất.</p></li>
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Quay & Dựng Trọn Gói (650,000 VNĐ/video):</strong> Thực hiện sản xuất theo kịch bản có sẵn.</p></li>
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">✓</span><p><strong class="font-semibold">Tùy chọn: Chụp ảnh món ăn (1,600,000 VNĐ):</strong> Gói bổ sung chụp 10-15 ảnh chất lượng cao.</p></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="terms" class="tab-content">
-                    <div class="max-w-4xl mx-auto glass-card p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
-                         <h3 class="text-xl md:text-2xl font-bold mb-5 text-slate-200 text-center border-b pb-3 border-gray-200">Quy Trình & Điều Khoản Hợp Tác Tiêu Chuẩn</h3>
-                         
-                         <!-- Ưu Đãi Section -->
-                         <div class="mb-8 p-4 bg-indigo-50 rounded-xl border border-indigo-200">
-                             <h4 class="font-bold text-lg text-indigo-300 mb-3">💡 Ưu Đãi Hợp Tác Độc Quyền</h4>
-                             <ul class="text-slate-300 space-y-2 text-sm md:text-base">
-                                 <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-0.5 text-xl">⭐</span><p><strong class="font-semibold">Hợp tác hệ thống (2 quán cùng lúc):</strong> Giảm 5% tổng chi phí mỗi tháng.</p></li>
-                                 <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-0.5 text-xl">📅</span><p><strong class="font-semibold">Ký hợp đồng 3 tháng trở lên:</strong> Tặng 1 buổi quay bổ sung/tháng.</p></li>
-                             </ul>
-                         </div>
-                         
-                         <!-- Lưu Ý Section -->
-                         <div class="relative pl-8 md:pl-10 pt-4">
-                             <div class="absolute left-0 top-0 h-full border-l-2 border-dashed border-indigo-400/50 ml-4"></div>
-                             
-                             <div class="mb-6 relative">
-                                 <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">1</div>
-                                 <h4 class="font-bold text-lg text-slate-200">Sản Phẩm Bàn Giao</h4>
-                                 <p class="text-slate-400 mt-1 text-sm">Bàn giao nội dung quay & dựng dạng MP4 (1080p).</p>
-                             </div>
-                             <div class="mb-6 relative">
-                                 <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">2</div>
-                                 <h4 class="font-bold text-lg text-slate-200">Thanh Toán</h4>
-                                 <p class="text-slate-400 mt-1 text-sm">Thanh toán 50% đầu kỳ (khi ký hợp đồng) và 50% còn lại sau khi bàn giao hết video cuối tháng.</p>
-                             </div>
-                             <div class="relative">
-                                  <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">3</div>
-                                 <h4 class="font-bold text-lg text-slate-200">Chi Phí Ngoài</h4>
-                                 <p class="text-slate-400 mt-1 text-sm">Chi phí đi lại ngoài khu vực nội thành và chi phí thuê diễn viên/KOL (nếu có) sẽ được tính riêng.</p>
-                             </div>
-                         </div>
+                    <div id="terms" class="tab-content">
+                        <div class="max-w-4xl mx-auto glass-card p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100">
+                            <h3 class="text-xl md:text-2xl font-bold mb-5 text-slate-200 text-center border-b pb-3 border-gray-200">Quy Trình & Điều Khoản Hợp Tác Tiêu Chuẩn</h3>
+                            
+                            <!-- Ưu Đãi Section -->
+                            <div class="mb-8 p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+                                <h4 class="font-bold text-lg text-indigo-300 mb-3">💡 Ưu Đãi Hợp Tác Độc Quyền</h4>
+                                <ul class="text-slate-300 space-y-2 text-sm md:text-base">
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-0.5 text-xl">⭐</span><p><strong class="font-semibold">Hợp tác hệ thống (2 quán cùng lúc):</strong> Giảm 5% tổng chi phí mỗi tháng.</p></li>
+                                    <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-0.5 text-xl">📅</span><p><strong class="font-semibold">Ký hợp đồng 3 tháng trở lên:</strong> Tặng 1 buổi quay bổ sung/tháng.</p></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Lưu Ý Section -->
+                            <div class="relative pl-8 md:pl-10 pt-4">
+                                <div class="absolute left-0 top-0 h-full border-l-2 border-dashed border-indigo-400/50 ml-4"></div>
+                                
+                                <div class="mb-6 relative">
+                                    <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">1</div>
+                                    <h4 class="font-bold text-lg text-slate-200">Sản Phẩm Bàn Giao</h4>
+                                    <p class="text-slate-400 mt-1 text-sm">Bàn giao nội dung quay & dựng dạng MP4 (1080p).</p>
+                                </div>
+                                <div class="mb-6 relative">
+                                    <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">2</div>
+                                    <h4 class="font-bold text-lg text-slate-200">Thanh Toán</h4>
+                                    <p class="text-slate-400 mt-1 text-sm">Thanh toán 50% đầu kỳ (khi ký hợp đồng) và 50% còn lại sau khi bàn giao hết video cuối tháng.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-8 md:-left-10 top-0 w-6 h-6 md:w-8 md:h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">3</div>
+                                    <h4 class="font-bold text-lg text-slate-200">Chi Phí Ngoài</h4>
+                                    <p class="text-slate-400 mt-1 text-sm">Chi phí đi lại ngoài khu vực nội thành và chi phí thuê diễn viên/KOL (nếu có) sẽ được tính riêng.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -364,7 +392,6 @@
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             }).format(value);
-            // Giữ lại VNĐ nhưng font size đã được tinh chỉnh bằng CSS (text-5xl)
             return formatted + ' VNĐ'; 
         }
         
@@ -379,7 +406,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             
-            // Lấy các phần tử DOM
+            // Lấy các phần tử DOM cho máy tính
             const videoCountInput = document.getElementById('video-count');
             const videoCountInfoEl = document.getElementById('video-count-info');
             const modeFullRadio = document.getElementById('mode-full');
@@ -487,31 +514,63 @@
             document.querySelectorAll('input[name="pricing-mode"]').forEach(radio => {
                 radio.addEventListener('change', updateCost);
             });
-
-            // Logic chuyển đổi Tab 
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.dataset.tab;
-
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    tabContents.forEach(content => {
-                        if (content.id === tabId) {
-                            content.classList.add('active');
-                        } else {
-                            content.classList.remove('active');
-                        }
-                    });
-                });
-            });
             
             // Bắt đầu bằng trạng thái checked-state cho radio mặc định
             document.getElementById('mode-full').closest('label').classList.add('checked-state');
+            
+            // --- LOGIC CHUYỂN TAB MƯỢT MÀ ---
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabWrapper = document.querySelector('.tab-content-wrapper');
 
+            function switchTab(tabId) {
+                const oldContent = document.querySelector('.tab-content.active');
+                const newContent = document.getElementById(tabId);
+                
+                if (oldContent === newContent) return; 
+
+                // 1. Deactivate old tab (to start fade-out effect)
+                if (oldContent) {
+                    oldContent.classList.remove('active');
+                }
+                
+                // 2. Activate new tab (to start fade-in effect)
+                // Set the new tab as active
+                newContent.classList.add('active');
+                
+                // 3. Set the height of the wrapper based on the new active tab's height
+                // This is crucial for preventing layout shift
+                // Use a short delay to ensure the content height is fully calculated after activation
+                setTimeout(() => {
+                    tabWrapper.style.height = newContent.offsetHeight + 'px';
+                }, 50);
+
+                // 4. Update button visuals
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    switchTab(button.dataset.tab);
+                });
+            });
+            
+            // Hàm khởi tạo và cập nhật chiều cao khi resize
+            function setInitialHeight() {
+                const initialActiveTab = document.querySelector('.tab-content.active');
+                if (initialActiveTab) {
+                    // Chiều cao ban đầu của wrapper
+                    tabWrapper.style.height = initialActiveTab.offsetHeight + 'px';
+                }
+            }
+            
+            // Gọi hàm khởi tạo sau khi DOM loaded
+            setInitialHeight();
+
+            // Cập nhật chiều cao khi màn hình thay đổi kích thước (responsive fix)
+            window.addEventListener('resize', setInitialHeight);
+            
             // Gọi hàm tính toán lần đầu để hiển thị giá trị mặc định
             updateCost();
         });
